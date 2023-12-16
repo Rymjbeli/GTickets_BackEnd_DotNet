@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTickets_BackEnd", "GTickets_BackEnd\GTickets_BackEnd.csproj", "{6FF0E2C7-C0C1-4070-9A12-8B221DD8A1CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Management.Service", "User.Management.Service\User.Management.Service.csproj", "{3299D494-D5F3-4D0B-81C3-31CA6EFC43B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FF0E2C7-C0C1-4070-9A12-8B221DD8A1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF0E2C7-C0C1-4070-9A12-8B221DD8A1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF0E2C7-C0C1-4070-9A12-8B221DD8A1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF0E2C7-C0C1-4070-9A12-8B221DD8A1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3299D494-D5F3-4D0B-81C3-31CA6EFC43B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3299D494-D5F3-4D0B-81C3-31CA6EFC43B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3299D494-D5F3-4D0B-81C3-31CA6EFC43B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3299D494-D5F3-4D0B-81C3-31CA6EFC43B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03CD29A6-435E-4170-9DFA-79FCDCC42592}
+	EndGlobalSection
+EndGlobal
