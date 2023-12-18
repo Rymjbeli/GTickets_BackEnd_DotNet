@@ -8,6 +8,7 @@ using System.Text;
 using GTickets_BackEnd.Models;
 using GTickets_BackEnd.Services.ServicesContracts;
 using GTickets_BackEnd.Services.Services;
+using GTickets_BackEnd.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("GTickets_BackEndContextConnection") ?? throw new InvalidOperationException("Connection string 'GTickets_BackEndContextConnection' not found.");
@@ -17,11 +18,20 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<GTickets_BackEndContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+//add ticket service to container
+builder.Services.AddScoped<ITicketService, TicketService>();
+
+// add repo to container
+builder.Services.AddScoped<IRepository<Ticket>, TicketRepository>();
+
 //For identity
 builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<GTickets_BackEndContext>()
     .AddDefaultTokenProviders();
-builder.Services.AddScoped < IEmailService,  EmailService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 //Add Config for required Email
 builder.Services.Configure<IdentityOptions>(
@@ -76,7 +86,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 app.UseCors("AllowOrigin");
 app.UseAuthorization();
 app.UseStaticFiles();
