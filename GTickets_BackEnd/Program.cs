@@ -21,11 +21,12 @@ builder.Services.AddDbContext<GTickets_BackEndContext>(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+// add repo to container
+builder.Services.AddScoped<IRepository<Ticket>, TicketRepository>();
+
 //add ticket service to container
 builder.Services.AddScoped<ITicketService, TicketService>();
 
-// add repo to container
-builder.Services.AddScoped<IRepository<Ticket>, TicketRepository>();
 
 //For identity
 builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)

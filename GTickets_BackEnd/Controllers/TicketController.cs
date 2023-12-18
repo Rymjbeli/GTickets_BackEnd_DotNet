@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using GTickets_BackEnd.Models;
 using GTickets_BackEnd.Repositories;
+using GTickets_BackEnd.Services.Services;
+using GTickets_BackEnd.Services.ServicesContracts;
 
 
 namespace GTickets_BackEnd.Controllers
@@ -11,10 +13,12 @@ namespace GTickets_BackEnd.Controllers
     {
 
         public readonly TicketRepository _repository;
+        public readonly TicketService _service;
 
-        public TicketController(IRepository<Ticket> repository)
+        public TicketController(IRepository<Ticket> repository, ITicketService service)
         {
             _repository = (TicketRepository)repository;
+            _service = (TicketService?)service;
         }
 
         // get all tickets
@@ -26,9 +30,9 @@ namespace GTickets_BackEnd.Controllers
 
         //get ticket by userId
         [HttpGet("userId/{userId}", Name = "GetAllTicketsByUserId")]
-        public ICollection<Ticket> GetAllTicketsByUserId(int userId)
+        public ICollection<Ticket> GetAllTicketsByUserId(string userId)
         {
-            return _repository.GetAllTicketsByUserId(userId);
+            return _service.GetAllTicketsByUserId(userId);
         }
 
         //get ticket by id
@@ -41,7 +45,7 @@ namespace GTickets_BackEnd.Controllers
 
         // add ticket and fill all fields
         [HttpPost("add/{userId}/{title}/{content}", Name = "AddTicket")]
-        public void Add(int userId, string title, string content)
+        public void Add(string userId, string title, string content)
         {
             Ticket ticket = new Ticket();
             ticket.UserId = userId;

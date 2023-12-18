@@ -9,7 +9,7 @@ namespace GTickets_BackEnd.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string? Priority { get; set; }
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
         public CustomUser? User { get; set; }
         public ICollection<Reply>? Replies { get; set; }
 

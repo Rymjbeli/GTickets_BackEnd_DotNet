@@ -16,7 +16,7 @@ namespace GTickets_BackEnd.Services.Services
         }
 
         // get all tickets by userId
-        public ICollection<Ticket> GetAllTicketsByUserId(int userId)
+        public ICollection<Ticket> GetAllTicketsByUserId(string userId)
         {
             return _repository.GetAllTicketsByUserId(userId);
         }

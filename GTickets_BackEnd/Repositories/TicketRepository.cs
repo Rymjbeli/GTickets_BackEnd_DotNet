@@ -1,4 +1,5 @@
 using GTickets_BackEnd.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GTickets_BackEnd.Repositories
 {
@@ -13,7 +14,7 @@ namespace GTickets_BackEnd.Repositories
 
         public ICollection<Ticket> GetAll()
         {
-            return _context.Tickets.ToList();
+            return _context.Tickets.Include(t => t.User).ToList();
         }
 
         public Ticket GetById(int id)
@@ -39,7 +40,7 @@ namespace GTickets_BackEnd.Repositories
             _context.SaveChanges();
         }
 
-        public ICollection<Ticket> GetAllTicketsByUserId(int userId)
+        public ICollection<Ticket> GetAllTicketsByUserId(string userId)
         {
             return _context.Tickets.Where(t => t.UserId == userId).ToList();
         }

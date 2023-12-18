@@ -5,6 +5,6 @@ namespace GTickets_BackEnd.Services.ServicesContracts
 {
     public interface ITicketService
     {
-        public ICollection<Ticket> GetAllTicketsByUserId(int userId);
+        public ICollection<Ticket> GetAllTicketsByUserId(string userId);
     }
 }
