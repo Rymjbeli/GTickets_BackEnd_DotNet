@@ -8,6 +8,7 @@ using System.Text;
 using GTickets_BackEnd.Models;
 using GTickets_BackEnd.Services.ServicesContracts;
 using GTickets_BackEnd.Services.Services;
+using GTickets_BackEnd.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("GTickets_BackEndContextConnection") ?? throw new InvalidOperationException("Connection string 'GTickets_BackEndContextConnection' not found.");
@@ -16,12 +17,15 @@ var connectionString = builder.Configuration.GetConnectionString("GTickets_BackE
 var configuration = builder.Configuration;
 builder.Services.AddDbContext<GTickets_BackEndContext>(options =>
     options.UseSqlServer(connectionString));
-
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
 //For identity
 builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<GTickets_BackEndContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped < IEmailService,  EmailService>();
+builder.Services.AddScoped < IRepository<Reply, int>, ReplyRepository>();
+builder.Services.AddScoped < IReplyService, ReplyService>();
 
 //Add Config for required Email
 builder.Services.Configure<IdentityOptions>(
