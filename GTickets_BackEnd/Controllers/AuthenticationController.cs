@@ -99,7 +99,7 @@ namespace GTickets_BackEnd.Controllers
                 new Response { Status = "Error", Message = "user Failed to create" });
             }
             // Add role to user
-            await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, "Admin");
 
             // Add Token to verify email
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -250,6 +250,8 @@ namespace GTickets_BackEnd.Controllers
                     }
                     );
         }
+
+
         [HttpGet("reset-passsword")]
         public async Task<IActionResult> ResetPassword(string token, string email)
         {

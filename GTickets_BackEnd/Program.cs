@@ -16,6 +16,8 @@ var connectionString = builder.Configuration.GetConnectionString("GTickets_BackE
 var configuration = builder.Configuration;
 builder.Services.AddDbContext<GTickets_BackEndContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 //For identity
 builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
