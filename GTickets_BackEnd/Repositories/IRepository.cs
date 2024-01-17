@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace GTickets_BackEnd.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T,id> where T : class
     {
-        IEnumerable<T> GetAll();
-        T GetById(int id);
+        ICollection<T> GetAll();
+        T GetById(id id);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
