@@ -15,7 +15,7 @@ namespace GTickets_BackEnd.Controllers
         public readonly ReplyRepository _repository;
         public readonly ReplyService _service;
 
-        public ReplyController(IRepository<Reply, int> repository, IReplyService service)
+        public ReplyController(ReplyRepository repository, IReplyService service)
         {
             _repository = (ReplyRepository)repository;
             _service = (ReplyService?)service;
@@ -44,13 +44,9 @@ namespace GTickets_BackEnd.Controllers
         }
 
         // add reply and fill all fields
-        [HttpPost("add/{userId}/{ticketId}/{content}", Name = "AddReply")]
-        public void Add(string userId, int ticketId, string content)
+        [HttpPost("add", Name = "AddReply")]
+        public void Add(Reply reply)
         {
-            Reply reply = new Reply();
-            reply.UserId = userId;
-            reply.TicketId = ticketId;
-            reply.Content = content;
             _repository.Add(reply);
         }
 

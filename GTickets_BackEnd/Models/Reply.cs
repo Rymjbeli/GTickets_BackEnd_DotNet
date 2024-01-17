@@ -9,7 +9,6 @@ namespace GTickets_BackEnd.Models
         public string? Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public int? TicketId { get; set; }
-        [ForeignKey(nameof(TicketId))]
         public Ticket? Ticket { get; set; }
         public string? UserId { get; set; }
         [ForeignKey(nameof(UserId))]

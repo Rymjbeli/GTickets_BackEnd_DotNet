@@ -24,9 +24,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<GTickets_BackEndContext>()
     .AddDefaultTokenProviders();
-builder.Services.AddScoped < IEmailService,  EmailService>();
-builder.Services.AddScoped < IRepository<Reply, int>, ReplyRepository>();
+builder.Services.AddScoped < IEmailService, EmailService>();
 builder.Services.AddScoped < IReplyService, ReplyService>();
+builder.Services.AddScoped < IUserService, UserService>();
+builder.Services.AddScoped < IAuthService, AuthService>();
+
+builder.Services.AddScoped <ReplyRepository>();
+builder.Services.AddScoped<UserRepository>();
+
 
 //Add Config for required Email
 builder.Services.Configure<IdentityOptions>(
@@ -70,7 +75,7 @@ options.AddPolicy("AllowOrigin",
                               .AllowAnyHeader()
                               .AllowAnyMethod()));
 
-builder.Services.AddScoped<IAuthService, AuthService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

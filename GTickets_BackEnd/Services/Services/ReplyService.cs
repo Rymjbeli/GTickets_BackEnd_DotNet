@@ -8,7 +8,7 @@ namespace GTickets_BackEnd.Services.Services
     {
         private readonly ReplyRepository _repository;
 
-        public ReplyService(IRepository<Reply, int> repository)
+        public ReplyService(ReplyRepository repository)
         {
               _repository = (ReplyRepository)repository;
         }

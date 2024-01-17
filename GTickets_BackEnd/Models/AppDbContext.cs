@@ -21,6 +21,7 @@ namespace GTickets_BackEnd.Models
         }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Reply> Replies { get; set; }
+
     }
 }
 
