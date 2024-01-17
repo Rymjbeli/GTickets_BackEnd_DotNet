@@ -31,7 +31,7 @@ namespace GTickets_BackEnd.Controllers
             return _userRepository.GetById(id);
         }
 
-        [HttpPost("isVerified/{id}", Name = "IsEmailConfirmed")]
+        [HttpGet("isVerified/{id}", Name = "IsEmailConfirmed")]
         public bool isVerified(string id)
         {
             return _userService.IsEmailConfirmed(id);
