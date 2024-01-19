@@ -12,13 +12,13 @@ namespace GTickets_BackEnd.Controllers
     public class ReplyController : ControllerBase
     {
 
-        public readonly ReplyRepository _repository;
-        public readonly ReplyService _service;
+        public readonly IRepository<Reply, int> _repository;
+        public readonly IReplyService _service;
 
-        public ReplyController(ReplyRepository repository, IReplyService service)
+        public ReplyController(IRepository<Reply, int> repository, IReplyService service)
         {
-            _repository = (ReplyRepository)repository;
-            _service = (ReplyService?)service;
+            _repository = repository;
+            _service = service;
         }
 
         // get all replies

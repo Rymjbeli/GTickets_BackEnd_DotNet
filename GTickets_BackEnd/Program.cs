@@ -17,21 +17,25 @@ var connectionString = builder.Configuration.GetConnectionString("GTickets_BackE
 var configuration = builder.Configuration;
 builder.Services.AddDbContext<GTickets_BackEndContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(connectionString));
+
+
 
 //For identity
 builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<GTickets_BackEndContext>()
     .AddDefaultTokenProviders();
+
 builder.Services.AddScoped < IEmailService, EmailService>();
 builder.Services.AddScoped < IReplyService, ReplyService>();
 builder.Services.AddScoped < IUserService, UserService>();
 builder.Services.AddScoped < IAuthService, AuthService>();
+builder.Services.AddScoped < ITicketService, TicketService>();
 
-builder.Services.AddScoped <ReplyRepository>();
-builder.Services.AddScoped<UserRepository>();
-
+builder.Services.AddScoped < IRepository<Reply, int>, ReplyRepository >();
+builder.Services.AddScoped <UserRepository>();
+builder.Services.AddScoped< TicketRepository>();
 
 //Add Config for required Email
 builder.Services.Configure<IdentityOptions>(
@@ -84,9 +88,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 app.UseCors("AllowOrigin");
 app.UseAuthorization();
 app.UseStaticFiles();

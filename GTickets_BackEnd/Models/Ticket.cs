@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace GTickets_BackEnd.Models
 {
@@ -13,8 +14,8 @@ namespace GTickets_BackEnd.Models
         public DateTime UpdatedAt { get; set; }
         public string? Priority { get; set; }
         public string? UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
         public CustomUser? User { get; set; }
+        [JsonIgnore]
         public ICollection<Reply>? Replies { get; set; }
 
     }

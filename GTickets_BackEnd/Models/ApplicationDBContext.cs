@@ -1,9 +1,12 @@
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTickets_BackEnd.Models
 {
-    public class AppDbContext : DbContext{
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
+    public class ApplicationDBContext : IdentityDbContext<CustomUser>
+    {
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) {
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -18,11 +21,10 @@ namespace GTickets_BackEnd.Models
             .WithMany(u => u.Replies)
             .HasForeignKey(t => t.UserId)
             .IsRequired();
+
         }
-        public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Reply> Replies { get; set; }
+         public DbSet<Ticket> Tickets { get; set; }
+         public DbSet<Reply> Replies { get; set; }
 
     }
 }
-
-

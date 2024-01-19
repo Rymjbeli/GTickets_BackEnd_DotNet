@@ -6,21 +6,29 @@ namespace GTickets_BackEnd.Repositories
 {
     public class ReplyRepository : IRepository<Reply, int>
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDBContext _context;
 
-        public ReplyRepository(AppDbContext context)
+        public ReplyRepository(ApplicationDBContext context)
         {
             _context = context;
         }
 
         public ICollection<Reply> GetAll()
         {
-            return _context.Replies.Include(c => c.Ticket).Include(c => c.User).ToList();
+            return _context
+                .Replies
+                .Include(c => c.Ticket)
+                .Include(c => c.User)
+                .ToList();
         }
 
         public Reply GetById(int id)
         {
-            return _context.Replies.FirstOrDefault(r => r.Id == id);
+            return _context
+                .Replies
+                .Include(c => c.Ticket)
+                .Include(c => c.User)
+                .FirstOrDefault(r => r.Id == id)!;
         }
 
         public void Add(Reply entity)
@@ -43,7 +51,12 @@ namespace GTickets_BackEnd.Repositories
 
         public ICollection<Reply> GetAllRepliesByTicketId(int ticketId)
         {
-            return _context.Replies.Where(t => t.TicketId == ticketId).ToList();
+            return _context
+                .Replies
+                .Where(t => t.TicketId == ticketId)
+                .Include(c => c.Ticket)
+                .Include(c => c.User)
+                .ToList();
         }
     }
 }

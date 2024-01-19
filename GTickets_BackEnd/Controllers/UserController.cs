@@ -11,12 +11,12 @@ namespace GTickets_BackEnd.Controllers
     public class UserController : ControllerBase
     {
         public readonly UserRepository _userRepository;
-        public readonly UserService _userService;
+        public readonly IUserService _userService;
 
         public UserController(UserRepository userRepository, IUserService userService)
         {
-            _userRepository = (UserRepository)userRepository;
-            _userService = (UserService)userService;
+            _userRepository = userRepository;
+            _userService = userService;
         }
 
         [HttpGet("all", Name = "GetAllUsers")]

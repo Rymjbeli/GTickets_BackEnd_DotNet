@@ -10,7 +10,7 @@ namespace GTickets_BackEnd.Services.Services
 
         public UserService(UserRepository userRepository)
         {
-            _userRepository = (UserRepository)userRepository;
+            _userRepository = userRepository;
         }
 
         public bool IsEmailConfirmed(string id)
