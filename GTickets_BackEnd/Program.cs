@@ -9,6 +9,7 @@ using GTickets_BackEnd.Models;
 using GTickets_BackEnd.Services.ServicesContracts;
 using GTickets_BackEnd.Services.Services;
 using GTickets_BackEnd.Repositories;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("GTickets_BackEndContextConnection") ?? throw new InvalidOperationException("Connection string 'GTickets_BackEndContextConnection' not found.");
@@ -23,7 +24,13 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 
 //For identity
-builder.Services.AddIdentity<CustomUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<CustomUser, IdentityRole>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = true;
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
+
+        }
+    )
     .AddEntityFrameworkStores<GTickets_BackEndContext>()
     .AddDefaultTokenProviders();
 

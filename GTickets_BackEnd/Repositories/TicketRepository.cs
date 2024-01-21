@@ -22,10 +22,11 @@ namespace GTickets_BackEnd.Repositories
             return _context.Tickets.Include(t => t.User).FirstOrDefault(t => t.Id == id);
         }
 
-        public void Add(Ticket entity)
+        public Ticket Add(Ticket entity)
         {
             _context.Tickets.Add(entity);
             _context.SaveChanges();
+            return _context.Tickets.Include(t => t.User).FirstOrDefault(t => t.Id == entity.Id);
         }
 
         public void Update(Ticket entity)

@@ -31,10 +31,12 @@ namespace GTickets_BackEnd.Repositories
                 .FirstOrDefault(r => r.Id == id)!;
         }
 
-        public void Add(Reply entity)
+        public Reply Add(Reply entity)
         {
             _context.Replies.Add(entity);
             _context.SaveChanges();
+            return _context.Replies.Include(t => t.User).Include(t => t.Ticket).FirstOrDefault(t => t.Id == entity.Id);
+
         }
 
         public void Update(Reply entity)

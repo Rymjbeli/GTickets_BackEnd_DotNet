@@ -49,11 +49,17 @@ namespace GTickets_BackEnd.Controllers
             // Additional validation for RegisterUser properties
 
             // Check if the user already exists
-            var userExist = await _userManager.FindByEmailAsync(registerUser.Email);
-            if (userExist != null)
+            var userExistByEmail = await _userManager.FindByEmailAsync(registerUser.Email);
+            if (userExistByEmail != null)
             {
                 return StatusCode(StatusCodes.Status403Forbidden,
                     new Response { Status = "Error", Message = "User Already Exists! " });
+            }
+            var userExistByUsername = await _userManager.FindByNameAsync(registerUser.Username);
+            if (userExistByUsername != null)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden,
+                    new Response { Status = "Error", Message = "This username already exists! Please choose another one. " });
             }
 
             // Add the user to the database

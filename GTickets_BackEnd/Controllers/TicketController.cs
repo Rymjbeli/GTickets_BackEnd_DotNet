@@ -4,7 +4,7 @@ using GTickets_BackEnd.Repositories;
 using GTickets_BackEnd.Services.Services;
 using GTickets_BackEnd.Services.ServicesContracts;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace GTickets_BackEnd.Controllers
 {
@@ -16,15 +16,19 @@ namespace GTickets_BackEnd.Controllers
         public readonly TicketRepository _repository;
         public readonly ITicketService _service;
         private readonly ApplicationDBContext _context;
+        private readonly IAuthService _authService;
+        private readonly UserManager<CustomUser> _userManager;
 
 
 
-        public TicketController(TicketRepository repository, ITicketService service, ApplicationDBContext context)
+        public TicketController(TicketRepository repository, ITicketService service, ApplicationDBContext context, IAuthService authService, UserManager<CustomUser> userManager)
         {
             _repository = repository;
             _service = service;
             _context = context;
-                }
+            _authService = authService;
+            _userManager = userManager;
+        }
 
         // get all tickets
         [HttpGet(Name = "GetAllTickets")]
@@ -50,10 +54,29 @@ namespace GTickets_BackEnd.Controllers
 
         // add ticket and fill all fields
          [HttpPost("add", Name = "AddTicket")]
-         public void Add(Ticket ticket)
+         public async Task<IActionResult> Add(Ticket ticket)
          {
              _repository.Add(ticket);
-         }
+
+            try
+            {
+                var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                foreach (var adminUser in adminUsers)
+                {
+                    _authService.SendEmail(adminUser.Email,"New Ticket Added", ticket.User.Email, "newTicket");
+                }
+                return Ok(); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+            
+            //var TicketCustomer = ticket.User?.UserName;
+            ///var dashboardLink = "https://your-admin-dashboard-link";
+            //var content = $"Ticket details: {TicketCustomer}\nDashboard Link: ";
+
+        }
 
 
 

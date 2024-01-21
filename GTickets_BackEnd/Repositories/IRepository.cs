@@ -7,7 +7,7 @@ namespace GTickets_BackEnd.Repositories
     {
         ICollection<T> GetAll();
         T GetById(id id);
-        void Add(T entity);
+        T Add(T entity);
         void Update(T entity);
         void Delete(T entity);
     

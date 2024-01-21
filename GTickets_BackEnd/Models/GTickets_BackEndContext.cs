@@ -18,6 +18,7 @@ public class GTickets_BackEndContext : IdentityDbContext<CustomUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
         SeedRoles(builder);
+
     }
 
     private void SeedRoles(ModelBuilder modelBuilder)
